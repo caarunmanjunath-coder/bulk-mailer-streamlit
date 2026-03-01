@@ -1,22 +1,4 @@
 import streamlit as st
-
-# ---- APP PASSWORD ----
-APP_PASSWORD = "admin123"
-
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-
-if not st.session_state.authenticated:
-    entered = st.text_input("Enter App Access Password", type="password")
-
-    if entered == APP_PASSWORD:
-        st.session_state.authenticated = True
-        st.rerun()
-    else:
-        st.stop()
-
-# ---- MAIN APP STARTS BELOW ----
-import streamlit as st
 import pandas as pd
 import smtplib
 from email.message import EmailMessage
@@ -31,8 +13,8 @@ st.title("📧 Professional Bulk Email Sender")
 # Sender Credentials
 # -----------------------
 st.sidebar.header("Sender Credentials")
-sender_email = st.secrets["EMAIL"]
-sender_password = st.secrets["PASSWORD"]
+sender_email = st.sidebar.text_input("Sender Email")
+sender_password = st.sidebar.text_input("Password / App Password", type="password")
 
 delay_seconds = st.sidebar.number_input("Delay Between Emails (seconds)", min_value=0.0, value=2.0)
 
