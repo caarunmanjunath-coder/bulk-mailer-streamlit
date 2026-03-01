@@ -1,11 +1,21 @@
 import streamlit as st
 
+# ---- APP PASSWORD ----
 APP_PASSWORD = "admin123"
 
-entered = st.text_input("Enter App Access Password", type="password")
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
 
-if entered != APP_PASSWORD:
-    st.stop()
+if not st.session_state.authenticated:
+    entered = st.text_input("Enter App Access Password", type="password")
+
+    if entered == APP_PASSWORD:
+        st.session_state.authenticated = True
+        st.rerun()
+    else:
+        st.stop()
+
+# ---- MAIN APP STARTS BELOW ----
 import streamlit as st
 import pandas as pd
 import smtplib
